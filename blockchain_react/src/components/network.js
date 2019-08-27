@@ -6,13 +6,21 @@ class Network extends Component {
   render() {
     return (
       <React.Fragment>
+        <div className="py-5">
+          <div className="container">
         <ProductConsumer>
           {value => {
             return value.network.map(blockchain => {
-              return <Blockchain />;
+              return (
+              <div className="row">
+              <Blockchain />;
+              </div>
+              );
             });
           }}
         </ProductConsumer>
+          </div>
+        </div>
       </React.Fragment>
     );
   }
