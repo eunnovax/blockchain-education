@@ -8,17 +8,21 @@ class Network extends Component {
       <React.Fragment>
         <div className="py-5">
           <div className="container">
-        <ProductConsumer>
-          {value => {
-            return value.network.map(blockchain => {
-              return (
-              <div className="row">
-              <Blockchain />;
-              </div>
-              );
-            });
-          }}
-        </ProductConsumer>
+            <ProductConsumer>
+              {value => {
+                return value.network.map(blockchain => {
+                  return (
+                    <div className="row">
+                      <Blockchain
+                        key={value.network.indexOf(blockchain) + 1}
+                        blockchain={blockchain}
+                      />
+                      ;
+                    </div>
+                  );
+                });
+              }}
+            </ProductConsumer>
           </div>
         </div>
       </React.Fragment>
