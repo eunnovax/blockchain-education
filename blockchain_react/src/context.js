@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
-import data from "./Data";
+import { network } from "./Data";
 
 const ProductContext = React.createContext();
 
@@ -19,7 +19,7 @@ class ProductProvider extends Component {
   setNetwork = network => {
     let tempNetwork = [];
     network.forEach(blockchain => {
-      const singleBlockchain = [...blockchain];
+      const singleBlockchain = { ...blockchain };
       tempNetwork = [...tempNetwork, singleBlockchain];
     });
     this.setState(() => {
@@ -28,6 +28,7 @@ class ProductProvider extends Component {
   };
   // END OF CONSTRUCTOR METHODS
   componentDidMount() {
+    this.setNetwork(network);
     return console.log("component mounted");
   }
   //BODY METHODS

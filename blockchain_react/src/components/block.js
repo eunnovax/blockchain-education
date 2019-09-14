@@ -41,6 +41,14 @@ export default withStyles(styles)(
   class Block extends Component {
     render() {
       const { classes } = this.props;
+      const {
+        blockNumber,
+        data,
+        nonce,
+        previousBlockHash,
+        timestamp,
+        hash
+      } = this.props.block;
       return (
         <ProductConsumer>
           {value => {
@@ -51,10 +59,10 @@ export default withStyles(styles)(
                     <form className="verspace">
                       <br />
                       <TextField
-                        id="standard-name"
-                        label="Имя"
-                        name="firstName"
-                        value={value.firstName}
+                        id="blockN"
+                        label="block #"
+                        name="Block Number"
+                        value={blockNumber}
                         onChange={e => value.change(e)}
                         margin="normal"
                         variant="outlined"
@@ -62,10 +70,10 @@ export default withStyles(styles)(
                       />
                       <br />
                       <TextField
-                        id="standard-lastname"
-                        label="Фамилия"
-                        name="lastName"
-                        value={value.lastName}
+                        id="nonce"
+                        label="Nonce"
+                        name="Nonce"
+                        value={nonce}
                         onChange={e => value.change(e)}
                         margin="normal"
                         variant="outlined"
@@ -73,10 +81,10 @@ export default withStyles(styles)(
                       />
                       <br />
                       <TextField
-                        id="standard-email"
-                        label="Email"
-                        name="email"
-                        value={value.email}
+                        id="data"
+                        label="Data"
+                        name="data"
+                        value={data}
                         onChange={e => value.change(e)}
                         margin="normal"
                         variant="outlined"
@@ -84,10 +92,10 @@ export default withStyles(styles)(
                       />
                       <br />
                       <TextField
-                        id="standard-phone"
-                        label="Телефон"
-                        name="phone"
-                        value={value.phone}
+                        id="prevBHash"
+                        label="prevBlockHash"
+                        name="prevBlockHash"
+                        value={previousBlockHash}
                         onChange={e => value.change(e)}
                         margin="normal"
                         variant="outlined"
@@ -104,7 +112,7 @@ export default withStyles(styles)(
                         }}
                         className={classes.button}
                       >
-                        Заказать
+                        Mine
                       </Button>
                     </form>
                     <br />
