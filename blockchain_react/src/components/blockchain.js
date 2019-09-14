@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { ProductConsumer } from "../context";
-import { Block } from "./Block";
+import Block from "./Block";
 
 class Blockchain extends Component {
   render() {

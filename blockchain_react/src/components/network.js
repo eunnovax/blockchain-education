@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { ProductConsumer } from "../context";
-import { Blockchain } from "./Blockchain";
+import Blockchain from "./Blockchain";
 
 class Network extends Component {
   render() {

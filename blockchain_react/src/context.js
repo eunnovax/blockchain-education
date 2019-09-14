@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
+import data from "./Data";
 
 const ProductContext = React.createContext();
 
@@ -9,12 +10,22 @@ class ProductProvider extends Component {
 
     this.state = {
       chains: [],
-      blockchain: [],
+      network: [],
       modalOpen: false
     };
   }
 
   // CONSTRUCTOR METHODS
+  setNetwork = network => {
+    let tempNetwork = [];
+    network.forEach(blockchain => {
+      const singleBlockchain = [...blockchain];
+      tempNetwork = [...tempNetwork, singleBlockchain];
+    });
+    this.setState(() => {
+      return { network: tempNetwork };
+    });
+  };
   // END OF CONSTRUCTOR METHODS
   componentDidMount() {
     return console.log("component mounted");

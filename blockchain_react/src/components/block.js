@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import styled from "styled-components";
 import { ProductConsumer } from "../context";
 import { SHA256 } from "./SHA256";
@@ -9,46 +9,46 @@ import Paper from "@material-ui/core/Paper";
 import PropTypes from "prop-types";
 
 const styles = theme => ({
-    container: {
-      display: "flex",
-      flexWrap: "wrap"
-    },
-    textField: {
-      marginLeft: theme.spacing.unit,
-      marginRight: theme.spacing.unit,
-      width: 200
-    },
-    button: {
-      margin: theme.spacing.unit
-    },
-    dense: {
-      marginTop: 19
-    },
-    menu: {
-      width: 200
-    },
-    root: {
-      width: "100%",
-      marginTop: theme.spacing.unit * 3,
-      overflowX: "auto"
-    },
-    table: {
-      minWidth: 700
-    }
-  });
+  container: {
+    display: "flex",
+    flexWrap: "wrap"
+  },
+  textField: {
+    marginLeft: theme.spacing.unit,
+    marginRight: theme.spacing.unit,
+    width: 200
+  },
+  button: {
+    margin: theme.spacing.unit
+  },
+  dense: {
+    marginTop: 19
+  },
+  menu: {
+    width: 200
+  },
+  root: {
+    width: "100%",
+    marginTop: theme.spacing.unit * 3,
+    overflowX: "auto"
+  },
+  table: {
+    minWidth: 700
+  }
+});
 
-export default withStyles(styles)(  
-class Block extends Component {
-    render() { 
-        const { classes } = this.props;
-        return ( 
-            <ProductConsumer>
-                {value => {
-                    return (
-                        <BlockContainer>
-                            <div>
-                                <div>
-                                <form className="verspace">
+export default withStyles(styles)(
+  class Block extends Component {
+    render() {
+      const { classes } = this.props;
+      return (
+        <ProductConsumer>
+          {value => {
+            return (
+              <BlockContainer>
+                <div>
+                  <div>
+                    <form className="verspace">
                       <br />
                       <TextField
                         id="standard-name"
@@ -108,14 +108,28 @@ class Block extends Component {
                       </Button>
                     </form>
                     <br />
-                                </div>
-                            </div>
-                        </BlockContainer>
-                    );
-                }}
-            </ProductConsumer>
-         );
+                  </div>
+                </div>
+              </BlockContainer>
+            );
+          }}
+        </ProductConsumer>
+      );
     }
-}
+  }
 );
- 
+
+const BlockContainer = styled.div`
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin-top: 1rem;
+  background: rgba(255, 255, 255, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  #modal {
+    background: var(--mainWhite);
+  }
+`;
