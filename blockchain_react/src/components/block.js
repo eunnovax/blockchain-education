@@ -54,8 +54,7 @@ export default withStyles(styles)(
           {value => {
             return (
               <BlockContainer>
-                <div>
-                  <div>
+                <div className='col-md-3'>
                     <form className="verspace">
                       <br />
                       <TextField
@@ -117,7 +116,6 @@ export default withStyles(styles)(
                     </form>
                     <br />
                   </div>
-                </div>
               </BlockContainer>
             );
           }}
@@ -134,7 +132,6 @@ const BlockContainer = styled.div`
   bottom: 0;
   margin-top: 1rem;
   background: rgba(255, 255, 255, 1);
-  display: flex;
   align-items: center;
   justify-content: center;
   #modal {

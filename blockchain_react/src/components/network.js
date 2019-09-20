@@ -12,13 +12,10 @@ class Network extends Component {
               {value => {
                 return value.network.map(blockchain => {
                   return (
-                    <div className="row">
                       <Blockchain
                         key={value.network.indexOf(blockchain) + 1}
                         blockchain={blockchain}
                       />
-                      ;
-                    </div>
                   );
                 });
               }}
