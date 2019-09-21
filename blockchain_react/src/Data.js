@@ -2,6 +2,7 @@ export const network = [
   {
     title: "1st Blockchain",
     nodes: 0,
+    chainId: 1,
     chain: [
       {
         blockNumber: 1,
@@ -18,12 +19,37 @@ export const network = [
         previousBlockHash: "123456789abcdef",
         timestamp: 2000,
         hash: "13466808acdrfhn"
+      },
+      {
+        blockNumber: 3,
+        data: "hello blockchain",
+        nonce: 22567,
+        previousBlockHash: "123456789abcdef",
+        timestamp: 2000,
+        hash: "13466808acdrfhn"
+      },
+      {
+        blockNumber: 4,
+        data: "hello blockchain",
+        nonce: 22567,
+        previousBlockHash: "123456789abcdef",
+        timestamp: 2000,
+        hash: "13466808acdrfhn"
+      },
+      {
+        blockNumber: 5,
+        data: "hello blockchain",
+        nonce: 22567,
+        previousBlockHash: "123456789abcdef",
+        timestamp: 2000,
+        hash: "13466808acdrfhn"
       }
     ]
   },
   {
     title: "2nd Blockchain",
     nodes: 0,
+    chainId: 2,
     chain: [
       {
         blockNumber: 1,

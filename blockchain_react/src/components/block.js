@@ -7,6 +7,7 @@ import Button from "@material-ui/core/Button";
 import { withStyles } from "@material-ui/core";
 import Paper from "@material-ui/core/Paper";
 import PropTypes from "prop-types";
+import { flexbox } from "@material-ui/system";
 
 const styles = theme => ({
   container: {
@@ -19,7 +20,12 @@ const styles = theme => ({
     width: 200
   },
   button: {
-    margin: theme.spacing.unit
+    margin: theme.spacing.unit,
+    width: 100,
+    height: 50,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   dense: {
     marginTop: 19
@@ -55,7 +61,7 @@ export default withStyles(styles)(
             return (
               <BlockContainer>
                 <div className='col-md-3'>
-                    <form className="verspace">
+                    <form >
                       <br />
                       <TextField
                         id="blockN"
@@ -109,7 +115,8 @@ export default withStyles(styles)(
                           value.onSubmit(e);
                           //closeFormal();
                         }}
-                        className={classes.button}
+                        className={classes.button} 
+                        
                       >
                         Mine
                       </Button>

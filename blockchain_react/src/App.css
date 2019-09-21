@@ -141,7 +141,9 @@ body {
 .verspace {
   margin-top: 5rem;
 }
-
+.buttonspace {
+  margin-top: 10rem;
+}
 @media screen and (max-width: 768px) {
   .producta {
     position: absolute;

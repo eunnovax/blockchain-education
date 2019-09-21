@@ -16,24 +16,29 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
+const SampleFab = () => {
+  const classes = useStyles();
+  return <Fab color="primary" aria-label="Add" className={classes.fab}><AddIcon /></Fab>;
+}
+
+
 class Blockchain extends Component {
   
   render() {
-    const classes = useStyles();
 
     const blockchain = this.props.blockchain;
     const { title, nodes, chain } = blockchain;
     return (
       // <ProductWrapper className="col-md-4"> 
       <React.Fragment>
-      <div className="chain-header d-flex align-self-center">
+          <div className="chain-header d-flex align-self-center">
             <h5 className="align-self-center mb-0"> {title} </h5>
           </div>
           
           <div className="chain-header d-flex align-self-center">
             <h5 className="text-blue mb-0">{nodes} Nodes</h5>
           </div>
-          <div className="row">
+          <div className="row my-5">
           {chain.map(block => {
             return (
               <div>
@@ -42,10 +47,11 @@ class Blockchain extends Component {
               </div>
             );
           })}
-          <Fab color="primary" aria-label="add" className={classes.fab}>
-        <AddIcon />
-      </Fab>
-        </div>
+              <div className='buttonspace'>
+                <SampleFab />
+              </div>
+
+          </div>
         </React.Fragment>
       // </ProductWrapper>
     );
