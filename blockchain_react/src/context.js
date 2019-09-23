@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { network } from "./Data";
+import crypto from 'crypto-api';
 
 const ProductContext = React.createContext();
 
@@ -48,12 +49,17 @@ class ProductProvider extends Component {
   // END OF CONSTRUCTOR METHODS
 
   //BODY METHODS
-  sha256 = (blockNumber, chainId) => {
+  blockText = (chain) => {
+    const {blockNumber, data, nonce, previousBlockHash, timestamp} = chain;
+    let blckTxt = blockNumber + data + nonce + previousBlockHash + timestamp;
+    return blckTxt;
+  }
+  sha256 = (chain) => {
     // calculate a SHA256 hash of the contents of the block
-    return CryptoJS.SHA256(getText(blockNumber, chainId));
+    return crypto.SHA256(this.blockText(chain));
   }
   updateState = (blockNumber, chainId, stateEl) => {
-    if (this.state.hash.substring(0,difficulty) === pattern) {
+    if (this.state.hash.substring(0,this.state.difficulty) === this.state.pattern) {
       stateEl.classList.remove('well-error').add('well-success');
     } else {
       stateEl.classList.remove('well-success').add('well-error');
@@ -71,6 +77,7 @@ class ProductProvider extends Component {
       this.updateHash(x, chainId);
     }
   }
+  
   //END OF BODY METHODS
 
   render() {
