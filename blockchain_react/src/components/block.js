@@ -59,7 +59,7 @@ export default withStyles(styles)(
         <ProductConsumer>
           {value => {
             return (
-              <BlockContainer>
+              <BlockContainer className={value.hash.substring(0,value.difficulty) === value.pattern ? 'well-success' : 'well-error' }>
                 <div className='col-md-3'>
                     <form >
                       <br />

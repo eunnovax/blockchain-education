@@ -144,6 +144,12 @@ body {
 .buttonspace {
   margin-top: 10rem;
 }
+.well-success {
+  background: color #00325e solid;
+}
+.well-error {
+  background: color #009ffd solid;
+}
 @media screen and (max-width: 768px) {
   .producta {
     position: absolute;
