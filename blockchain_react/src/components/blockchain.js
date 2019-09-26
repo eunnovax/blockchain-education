@@ -28,6 +28,7 @@ class Blockchain extends Component {
 
     const blockchain = this.props.blockchain;
     const { title, nodes, chain } = blockchain;
+    const chainID = this.props.chainID;
     return (
       // <ProductWrapper className="col-md-4"> 
       <React.Fragment>
@@ -41,10 +42,10 @@ class Blockchain extends Component {
           <div className="row my-5">
           {chain.map(block => {
             return (
-              <div>
-                <Block key={chain.indexOf(block) + 1} block={block} />
-                
-              </div>
+                <Block 
+                key={chain.indexOf(block) + 1} block={block}
+                chainID={chainID}
+                />                
             );
           })}
               <div className='buttonspace'>

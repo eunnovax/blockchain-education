@@ -15,6 +15,7 @@ class Network extends Component {
                       <Blockchain
                         key={value.network.indexOf(blockchain) + 1}
                         blockchain={blockchain}
+                        chainID={value.network.indexOf(blockchain)+1}
                       />
                   );
                 });

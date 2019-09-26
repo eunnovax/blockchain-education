@@ -15,12 +15,12 @@ const styles = theme => ({
     flexWrap: "wrap"
   },
   textField: {
-    marginLeft: theme.spacing.unit,
-    marginRight: theme.spacing.unit,
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
     width: 200
   },
   button: {
-    margin: theme.spacing.unit,
+    margin: theme.spacing(1),
     width: 100,
     height: 50,
     display: 'flex',
@@ -35,7 +35,7 @@ const styles = theme => ({
   },
   root: {
     width: "100%",
-    marginTop: theme.spacing.unit * 3,
+    marginTop: theme.spacing(3),
     overflowX: "auto"
   },
   table: {
@@ -55,11 +55,12 @@ export default withStyles(styles)(
         timestamp,
         hash
       } = this.props.block;
+      const chainID = this.props.chainID;
       return (
         <ProductConsumer>
           {value => {
             return (
-              <BlockContainer className={value.hash.substring(0,value.difficulty) === value.pattern ? 'well-success' : 'well-error' }>
+              <BlockContainer className={hash.substring(0,value.difficulty) === value.pattern ? 'well-success' : 'well-error' }>
                 <div className='col-md-3'>
                     <form >
                       <br />
@@ -111,9 +112,8 @@ export default withStyles(styles)(
                       <Button
                         variant="contained"
                         color="primary"
-                        onClick={e => {
-                          value.onSubmit(e);
-                          //closeFormal();
+                        onClick={e=>{
+                          value.mine(blockNumber-1, chainID-1);
                         }}
                         className={classes.button} 
                         

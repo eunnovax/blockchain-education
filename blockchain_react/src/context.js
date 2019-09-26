@@ -48,34 +48,47 @@ class ProductProvider extends Component {
   // END OF CONSTRUCTOR METHODS
 
   //BODY METHODS
-  blockText = (block, chain) => {
-    const {blockNumber, data, nonce, previousBlockHash, timestamp} = this.state.network[chain].chain[block];
+  blockText = (block, chain, network) => {
+    const {blockNumber, data, nonce, previousBlockHash, timestamp} = network[chain].chain[block];
     let blckTxt = blockNumber + data + nonce + previousBlockHash + timestamp;
+    console.log('blockText', blckTxt);
     return blckTxt;
   }
-  sha256 = (block, chain) => {
+  sha256 = (block, chain, network) => {
     // calculate a SHA256 hash of the contents of the block
-    return SHA256(this.blockText(block, chain));
+    const hash = SHA256(this.blockText(block, chain, network));
+    console.log('hash', hash);
+    return hash;
   }
   updateHash = (block, chain) => {
-    return this.setState({hash: this.sha256(block, chain)});
+    let tempNetwork = [...this.state.network];
+    tempNetwork[chain].chain[block].hash = this.sha256(block,chain, tempNetwork);
+    return this.setState({network: tempNetwork});
   }
   updateChain = (block, chain) => {
     for (let i=block; i < this.state.network[chain].chain.length; i++ ) {
       if (i>1) {
-        this.setState({prevHash: this.state.network[chain].chain[i-1].hash});
+        let tempNetwork = [...this.state.network];
+        console.log('tempNetwork', tempNetwork);
+        tempNetwork[chain].chain[i].previousBlockHash = tempNetwork[chain].chain[i-1].hash;
+        this.setState({network: tempNetwork});
       }
       this.updateHash(i, chain);
     }
   }
-  mine = (block,chain, isChain) => {
-    const {nonce, hash} = this.state.chain[block];
+  mine = (block,chain) => {
+    // const {nonce, hash} = this.state.chain[block];
     const {difficulty} = this.state.difficulty; const {pattern} = this.state.pattern;
-    for (let x=0; x<this.state.maxNonce; x++) {
-      nonce = x;
-      hash = this.sha256(block, chain);
+    for (let x=0; x<10; x++) {
+      let tempNetwork = [...this.state.network];
+      // console.log('tempNetwork', block, chain);
+      tempNetwork[chain].chain[block].nonce = x;
+      const hash = this.sha256(block, chain, tempNetwork).toString();
+      console.log('string hash', hash);
+      console.log('substring of hash', hash.substring(0,difficulty), 'pattern', pattern);
       if (hash.substring(0,difficulty) === pattern) {
         this.updateChain(block, chain);
+        break;
       }
     }
   }
