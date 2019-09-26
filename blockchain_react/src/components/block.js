@@ -56,6 +56,7 @@ export default withStyles(styles)(
         hash
       } = this.props.block;
       const chainID = this.props.chainID;
+      console.log('hash', hash, 'nonce', nonce);
       return (
         <ProductConsumer>
           {value => {
