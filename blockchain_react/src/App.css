@@ -5,8 +5,8 @@
   --mainDark: #232528;
   --mainYellow: #ffa400;
   --darkOcean: #00325e;
-  --darkGreen: #17252a;
-  --lighterGreen: #2b7a78;
+  --pink: #FCBAEC;
+  --lighterGreen: #98FFF3;
   --greenEr: #2292b4;
   --greenGrey: hsl(0, 0%, 100%);
 }
@@ -145,10 +145,11 @@ body {
   margin-top: 10rem;
 }
 .well-success {
-  background: color #00325e solid;
+  background: var(--lighterGreen);
+  width: max-content;
 }
 .well-error {
-  background: color #009ffd solid;
+  background: var(--pink);
 }
 @media screen and (max-width: 768px) {
   .producta {

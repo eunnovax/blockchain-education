@@ -71,21 +71,22 @@ class ProductProvider extends Component {
     // console.log('hash', hash);
     return hash;
   }
-  updateHash = (block, chain) => {
-    let tempNetwork = [...this.state.network];
+  updateHash = (block, chain, network) => {
+    let tempNetwork = [...network];
     tempNetwork[chain].chain[block].hash = this.sha256(block,chain, tempNetwork).toString();
-    return this.setState({network: tempNetwork});
+    return tempNetwork;
   }
   updateChain = (block, chain) => {
+    let tempNetwork = [...this.state.network];
     for (let i=block; i < this.state.network[chain].chain.length; i++ ) {
-      if (i>1) {
-        let tempNetwork = [...this.state.network];
+      if (i>0) {
         // console.log('tempNetwork', tempNetwork);
         tempNetwork[chain].chain[i].previousBlockHash = tempNetwork[chain].chain[i-1].hash;
-        this.setState({network: tempNetwork});
+        // this.setState({network: tempNetwork});
       }
-      this.updateHash(i, chain);
+      tempNetwork = this.updateHash(i, chain, tempNetwork);
     }
+    this.setState({network: tempNetwork});
   }
   mine = (block,chain) => {
     // const {nonce, hash} = this.state.chain[block];

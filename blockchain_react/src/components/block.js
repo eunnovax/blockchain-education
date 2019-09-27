@@ -1,13 +1,10 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 import { ProductConsumer } from "../context";
-import { SHA256 } from "./SHA256";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import { withStyles } from "@material-ui/core";
-import Paper from "@material-ui/core/Paper";
 import PropTypes from "prop-types";
-import { flexbox } from "@material-ui/system";
 
 const styles = theme => ({
   container: {
@@ -61,9 +58,9 @@ export default withStyles(styles)(
         <ProductConsumer>
           {value => {
             return (
-              <BlockContainer className={hash.substring(0,value.difficulty) === value.pattern ? 'well-success' : 'well-error' }>
+              <BlockContainer >
                 <div className='col-md-3'>
-                    <form >
+                    <form className={hash.substring(0,value.difficulty) === value.pattern ? 'well-success' : 'well-error' }>
                       <br />
                       <TextField
                         id="blockN"
@@ -139,10 +136,11 @@ const BlockContainer = styled.div`
   right: 0;
   bottom: 0;
   margin-top: 1rem;
-  background: rgba(255, 255, 255, 1);
+  
   align-items: center;
   justify-content: center;
   #modal {
     background: var(--mainWhite);
   }
 `;
+// background: rgba(255, 255, 255, 1);
