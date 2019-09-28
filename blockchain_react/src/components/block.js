@@ -78,7 +78,7 @@ export default withStyles(styles)(
                         label="Nonce"
                         name="Nonce"
                         value={nonce}
-                        onChange={e => value.change(e)}
+                        onChange={e => value.change(e, blockNumber-1, chainID-1)}
                         margin="normal"
                         variant="outlined"
                         className={classes.textField}

@@ -4,16 +4,16 @@ import { network } from "./Data";
 import SHA256 from 'crypto-js/sha256';
 
 const ProductContext = React.createContext();
-let pattern = '';
-const setPattern = function (diff ) {
+// let pattern = '';
+// const setPattern = function (diff ) {
  
-  for (let x = 0; x < diff; x++) {
-    pattern += '0';
-  }
-  console.log(pattern);
-  return pattern;
+//   for (let x = 0; x < diff; x++) {
+//     pattern += '0';
+//   }
+//   console.log(pattern);
+//   return pattern;
   
-};
+// };
 
 class ProductProvider extends Component {
   constructor(props) {
@@ -103,7 +103,16 @@ class ProductProvider extends Component {
       }
     }
   }
-  
+  change = (e, block, chain) => {
+    let tempNetwork = [...this.state.network];
+    tempNetwork[chain].chain[block].nonce = e.target.value;
+    
+    this.setState({
+      network: tempNetwork
+    }, () => {
+      console.log('nonce', this.state.network[chain].chain[block].nonce);
+    });
+  };
   //END OF BODY METHODS
 
   render() {
@@ -115,7 +124,8 @@ class ProductProvider extends Component {
           sha256: this.sha256,
           updateHash: this.updateHash,
           updateChain: this.updateChain,
-          mine: this.mine
+          mine: this.mine,
+          change: this.change
           // bodyMethod: this.bodyMethod
         }}
       >
