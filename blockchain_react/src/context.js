@@ -103,14 +103,26 @@ class ProductProvider extends Component {
       }
     }
   }
-  change = (e, block, chain) => {
+  changeNonce = (e, block, chain) => {
     let tempNetwork = [...this.state.network];
     tempNetwork[chain].chain[block].nonce = e.target.value;
     
     this.setState({
       network: tempNetwork
     }, () => {
-      console.log('nonce', this.state.network[chain].chain[block].nonce);
+      this.updateChain(block, chain)
+      // console.log('nonce', this.state.network[chain].chain[block].nonce);
+    });
+  };
+  changeData = (e, block, chain) => {
+    let tempNetwork = [...this.state.network];
+    tempNetwork[chain].chain[block].data = e.target.value;
+    
+    this.setState({
+      network: tempNetwork
+    }, () => {
+      this.updateChain(block, chain)
+      // console.log('data', this.state.network[chain].chain[block].data);
     });
   };
   //END OF BODY METHODS
@@ -125,7 +137,8 @@ class ProductProvider extends Component {
           updateHash: this.updateHash,
           updateChain: this.updateChain,
           mine: this.mine,
-          change: this.change
+          changeNonce: this.changeNonce,
+          changeData: this.changeData
           // bodyMethod: this.bodyMethod
         }}
       >

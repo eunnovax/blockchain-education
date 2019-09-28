@@ -53,7 +53,7 @@ export default withStyles(styles)(
         hash
       } = this.props.block;
       const chainID = this.props.chainID;
-      console.log('hash', hash, 'nonce', nonce);
+      // console.log('hash', hash, 'nonce', nonce);
       return (
         <ProductConsumer>
           {value => {
@@ -67,7 +67,7 @@ export default withStyles(styles)(
                         label="block #"
                         name="Block Number"
                         value={blockNumber}
-                        onChange={e => value.change(e)}
+                        // onChange={e => value.change(e)}
                         margin="normal"
                         variant="outlined"
                         className={classes.textField}
@@ -78,7 +78,7 @@ export default withStyles(styles)(
                         label="Nonce"
                         name="Nonce"
                         value={nonce}
-                        onChange={e => value.change(e, blockNumber-1, chainID-1)}
+                        onChange={e => value.changeNonce(e, blockNumber-1, chainID-1)}
                         margin="normal"
                         variant="outlined"
                         className={classes.textField}
@@ -89,7 +89,7 @@ export default withStyles(styles)(
                         label="Data"
                         name="data"
                         value={data}
-                        onChange={e => value.change(e)}
+                        onChange={e => value.changeData(e, blockNumber-1, chainID-1)}
                         margin="normal"
                         variant="outlined"
                         className={classes.textField}
@@ -100,7 +100,18 @@ export default withStyles(styles)(
                         label="prevBlockHash"
                         name="prevBlockHash"
                         value={previousBlockHash}
-                        onChange={e => value.change(e)}
+                        // onChange={e => value.change(e)}
+                        margin="normal"
+                        variant="outlined"
+                        className={classes.textField}
+                      />
+                      <br />
+                      <TextField
+                        id="hash"
+                        label="hash"
+                        name="Hash"
+                        value={hash}
+                        // onChange={e => value.change(e)}
                         margin="normal"
                         variant="outlined"
                         className={classes.textField}
