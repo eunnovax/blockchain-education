@@ -15,11 +15,17 @@ const useStyles = makeStyles(theme => ({
     marginRight: theme.spacing(1),
   },
 }));
-// add new to array
 
 const SampleFab = () => {
   const classes = useStyles();
-  return <Fab color="primary" aria-label="Add" className={classes.fab}><AddIcon /></Fab>;
+  return  <Fab 
+          color="primary" 
+          aria-label="Add" 
+          className={classes.fab}
+          >
+            <AddIcon />
+          </Fab>
+          
 }
 
 
@@ -31,7 +37,9 @@ class Blockchain extends Component {
     const { title, nodes, chain } = blockchain;
     const chainID = this.props.chainID;
     return (
-      // <ProductWrapper className="col-md-4"> 
+      <ProductConsumer>
+        {value=> {
+          return (
       <React.Fragment>
           <div className="chain-header d-flex align-self-center">
             <h5 className="align-self-center mb-0"> {title} </h5>
@@ -49,13 +57,20 @@ class Blockchain extends Component {
                 />                
             );
           })}
-              <div className='buttonspace'>
-                <SampleFab />
+              <div 
+              className='buttonspace' 
+              onClick = {e=>{
+                  value.addBlock(chain.length, chainID);
+                }}
+              >
+                <SampleFab/>
               </div>
 
           </div>
         </React.Fragment>
-      // </ProductWrapper>
+        );
+        }}
+      </ProductConsumer>
     );
   }
 }

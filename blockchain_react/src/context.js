@@ -125,6 +125,18 @@ class ProductProvider extends Component {
       // console.log('data', this.state.network[chain].chain[block].data);
     });
   };
+  addBlock = (block, chain) => {
+    let tempNetwork = [...this.state.network];
+    let newBlock = {};
+    newBlock.blockNumber = block + 1;
+    newBlock.data = 'new block';
+    newBlock.nonce = 1111;
+    newBlock.previousBlockHash = tempNetwork[chain-1].chain[block-1].hash;
+    newBlock.timestamp = 1111;
+    newBlock.hash = '';
+    tempNetwork[chain-1].chain = [...tempNetwork[chain-1].chain, newBlock];
+    this.setState({network: tempNetwork});
+  };
   //END OF BODY METHODS
 
   render() {
@@ -138,7 +150,8 @@ class ProductProvider extends Component {
           updateChain: this.updateChain,
           mine: this.mine,
           changeNonce: this.changeNonce,
-          changeData: this.changeData
+          changeData: this.changeData,
+          addBlock: this.addBlock
           // bodyMethod: this.bodyMethod
         }}
       >
