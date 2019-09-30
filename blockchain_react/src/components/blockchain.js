@@ -15,6 +15,7 @@ const useStyles = makeStyles(theme => ({
     marginRight: theme.spacing(1),
   },
 }));
+// add new to array
 
 const SampleFab = () => {
   const classes = useStyles();

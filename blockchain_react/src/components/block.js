@@ -58,9 +58,9 @@ export default withStyles(styles)(
         <ProductConsumer>
           {value => {
             return (
-              <BlockContainer >
-                <div className='col-md-3'>
-                    <form className={hash.substring(0,value.difficulty) === value.pattern ? 'well-success' : 'well-error' }>
+              <BlockContainer className='col-lg-3 col-sm-6'>
+                <div>
+                    <form className={hash.substring(0,value.difficulty) === value.pattern ? 'block-success' : 'block-error' }>
                       <br />
                       <TextField
                         id="blockN"
@@ -91,6 +91,8 @@ export default withStyles(styles)(
                         value={data}
                         onChange={e => value.changeData(e, blockNumber-1, chainID-1)}
                         margin="normal"
+                        multiline = {true}
+                        rows= {4}
                         variant="outlined"
                         className={classes.textField}
                       />
@@ -147,11 +149,33 @@ const BlockContainer = styled.div`
   right: 0;
   bottom: 0;
   margin-top: 1rem;
-  
   align-items: center;
   justify-content: center;
   #modal {
     background: var(--mainWhite);
+  }
+  &:hover {
+    .block-success {
+      border: 0.04rem solid rgba(0, 0, 0, 0.2);
+      box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.2);
+    }
+    .block-error {
+      border: 0.04rem solid rgba(0, 0, 0, 0.2);
+      box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.2);
+    }
+  }
+  .block-success {
+    border-color: transparent;
+    transition: all 0.2s linear;
+    border-radius: 25px;
+    background: var(--lighterGreen);
+  }
+  .block-error {
+    border-color: transparent;
+    transition: all 0.2s linear;
+    border-radius: 25px;
+    background: var(--pink);
+    
   }
 `;
 // background: rgba(255, 255, 255, 1);
