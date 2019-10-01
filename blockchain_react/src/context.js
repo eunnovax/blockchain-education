@@ -137,6 +137,26 @@ class ProductProvider extends Component {
     tempNetwork[chain-1].chain = [...tempNetwork[chain-1].chain, newBlock];
     this.setState({network: tempNetwork});
   };
+  addChain = () => {
+    let tempNetwork = [...this.state.network];
+    let newChain = {};
+    newChain.nodes = 0;
+    newChain.title = 'New Blockchain';
+    newChain.chainId = tempNetwork.length + 1;
+    newChain.chain = [];
+
+    let newBlock = {};
+    newBlock.blockNumber = 1;
+    newBlock.data = 'new block';
+    newBlock.nonce = 1111;
+    newBlock.previousBlockHash = '0';
+    newBlock.timestamp = 1111;
+    newBlock.hash = '';
+    
+    newChain.chain = [...newChain.chain, newBlock];
+    tempNetwork = [...tempNetwork, newChain];
+    this.setState({network: tempNetwork});
+  };
   //END OF BODY METHODS
 
   render() {
@@ -151,7 +171,8 @@ class ProductProvider extends Component {
           mine: this.mine,
           changeNonce: this.changeNonce,
           changeData: this.changeData,
-          addBlock: this.addBlock
+          addBlock: this.addBlock,
+          addChain: this.addChain
           // bodyMethod: this.bodyMethod
         }}
       >
