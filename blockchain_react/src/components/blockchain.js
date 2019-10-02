@@ -6,9 +6,13 @@ import Block from "./Block";
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import { makeStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
 
 const useStyles = makeStyles(theme => ({
   fab: {
+    margin: theme.spacing(1),
+  },
+  button: {
     margin: theme.spacing(1),
   },
   extendedIcon: {
@@ -25,6 +29,16 @@ const SampleFab = () => {
           >
             <AddIcon />
           </Fab>
+}
+const SampleButton =()=> {
+  const classes = useStyles();
+  return <Button
+         variant="outlined" 
+         color="primary" 
+         className={classes.button}
+         >
+           Broadcast
+         </Button>
 }
 
 
@@ -46,6 +60,13 @@ class Blockchain extends Component {
           
           <div className="chain-header d-flex align-self-center">
             <h5 className="text-blue mb-0">{nodes} Nodes</h5>
+          </div>
+          <div 
+          onClick = {e=> {
+            value.consensus(e);
+          }}
+          >
+          <SampleButton />
           </div>
           <div className="row my-5">
           {chain.map(block => {

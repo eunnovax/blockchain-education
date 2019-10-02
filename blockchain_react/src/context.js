@@ -157,6 +157,14 @@ class ProductProvider extends Component {
     tempNetwork = [...tempNetwork, newChain];
     this.setState({network: tempNetwork});
   };
+  consensus = (e) => {
+    e.preventDefault();
+    const networkArray = [...this.state.network];
+    console.log('netArray', networkArray);
+    axios.post('https://...', networkArray).then(res => {
+      console.log(res.data);
+    });
+  };
   //END OF BODY METHODS
 
   render() {
@@ -172,7 +180,8 @@ class ProductProvider extends Component {
           changeNonce: this.changeNonce,
           changeData: this.changeData,
           addBlock: this.addBlock,
-          addChain: this.addChain
+          addChain: this.addChain,
+          consensus: this.consensus
           // bodyMethod: this.bodyMethod
         }}
       >
