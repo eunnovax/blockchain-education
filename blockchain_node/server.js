@@ -17,6 +17,9 @@ connection.once('open', ()=> {
     console.log('MongoDB database connection established successfully');
 });
 
+const consensusRouter = require('./routes/consensus');
+app.use('/consensus', consensusRouter);
+
 app.listen(port, () => {
     console.log(`Server is running on port: ${port}`);
 });
