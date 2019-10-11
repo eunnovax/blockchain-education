@@ -161,9 +161,11 @@ class ProductProvider extends Component {
     e.preventDefault();
     const networkArray = [...this.state.network];
     console.log('netArray', networkArray);
-    axios.post('https://...', networkArray).then(res => {
+    axios.post('https://localhost:5000/broadcast/add', networkArray).then(res => {
       console.log(res.data);
+      this.setState({network: res.data});
     });
+    window.location = '/';
   };
   //END OF BODY METHODS
 
