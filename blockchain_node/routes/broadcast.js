@@ -8,10 +8,20 @@ router.route('/').get((req, res) => {
 });
 
 router.route('/add').post((req, res) => {
-    const network = req.body.network;
-
+    const blockchain = req.body.blockchain;
+    const title = blockchain.title;
+    const nodes = blockchain.nodes;
+    const chainId = blockchain.chainId;
+    const chain = blockchain.chain;
+     
+    const newChain = new Broadcast({
+      title,
+      nodes,
+      chainId,
+      chain
+    });
     //consensus algorithm
-    newNetwork
+    newChain
     .save()
     .then(() => res.json('Network updated!'))
     .catch(err => res.status(400).json('Error: '+ err));

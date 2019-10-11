@@ -157,11 +157,12 @@ class ProductProvider extends Component {
     tempNetwork = [...tempNetwork, newChain];
     this.setState({network: tempNetwork});
   };
-  consensus = (e) => {
+  consensus = (e, chain) => {
     e.preventDefault();
     const networkArray = [...this.state.network];
     console.log('netArray', networkArray);
-    axios.post('https://localhost:5000/broadcast/add', networkArray).then(res => {
+    const blockchain = networkArray[chain];
+    axios.post('https://localhost:5000/broadcast/add', blockchain).then(res => {
       console.log(res.data);
       this.setState({network: res.data});
     });

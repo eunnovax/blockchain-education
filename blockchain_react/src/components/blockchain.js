@@ -63,7 +63,7 @@ class Blockchain extends Component {
           </div>
           <div 
           onClick = {e=> {
-            value.consensus(e);
+            value.consensus(e, chain);
           }}
           >
           <SampleButton />
