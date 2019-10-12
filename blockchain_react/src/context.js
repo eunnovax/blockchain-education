@@ -161,12 +161,15 @@ class ProductProvider extends Component {
     e.preventDefault();
     const networkArray = [...this.state.network];
     console.log('netArray', networkArray);
-    const blockchain = networkArray[chain];
-    axios.post('https://localhost:5000/broadcast/add', blockchain).then(res => {
+    const block = networkArray[chain].chain[0];
+    console.log('blockchain added', block);
+    axios.post('http://localhost:5000/broadcast/add', block).then(res => {
       console.log(res.data);
-      this.setState({network: res.data});
+      // const newChain = res.data;
+
+      // this.setState({network: res.data});
     });
-    window.location = '/';
+    // window.location = '/';
   };
   //END OF BODY METHODS
 

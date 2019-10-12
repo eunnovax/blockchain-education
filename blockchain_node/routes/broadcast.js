@@ -8,17 +8,20 @@ router.route('/').get((req, res) => {
 });
 
 router.route('/add').post((req, res) => {
-    const blockchain = req.body.blockchain;
-    const title = blockchain.title;
-    const nodes = blockchain.nodes;
-    const chainId = blockchain.chainId;
-    const chain = blockchain.chain;
+    const blockNumber = req.body.blockNumber;
+    const data = req.body.data;
+    const nonce = req.body.nonce;
+    const previousBlockHash = req.body.previousBlockHash;
+    const timestamp = req.body.timestamp;
+    const hash = req.body.hash;
      
     const newChain = new Broadcast({
-      title,
-      nodes,
-      chainId,
-      chain
+      blockNumber,
+      data,
+      nonce,
+      previousBlockHash,
+      timestamp,
+      hash
     });
     //consensus algorithm
     newChain
@@ -26,3 +29,5 @@ router.route('/add').post((req, res) => {
     .then(() => res.json('Network updated!'))
     .catch(err => res.status(400).json('Error: '+ err));
 });
+
+module.exports = router;
