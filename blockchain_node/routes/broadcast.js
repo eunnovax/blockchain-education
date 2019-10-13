@@ -3,9 +3,16 @@ let Broadcast = require('../models/broadcast.model');
 
 router.route('/').get((req, res) => {
     Broadcast.find()
-    .then(broadcast => res.json(broadcast))
+    .then(blocks => res.json(blocks))
     .catch(err => res.status(400).json('Error: ' + err));
 });
+
+router.route("/:id").get((req, res) => {
+  Broadcast.findById(req.params.id)
+    .then(block => res.json(block))
+    .catch(err => res.status(400).json("Error: " + err));
+});
+
 
 router.route('/add').post((req, res) => {
     const blockNumber = req.body.blockNumber;

@@ -42,6 +42,7 @@ const styles = theme => ({
 
 export default withStyles(styles)(
   class Block extends Component {
+
     render() {
       const { classes } = this.props;
       const {

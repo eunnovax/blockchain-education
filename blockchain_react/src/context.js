@@ -4,16 +4,7 @@ import { network } from "./Data";
 import SHA256 from 'crypto-js/sha256';
 
 const ProductContext = React.createContext();
-// let pattern = '';
-// const setPattern = function (diff ) {
- 
-//   for (let x = 0; x < diff; x++) {
-//     pattern += '0';
-//   }
-//   console.log(pattern);
-//   return pattern;
-  
-// };
+
 
 class ProductProvider extends Component {
   constructor(props) {
@@ -54,7 +45,12 @@ class ProductProvider extends Component {
   componentDidMount() {
     this.setNetwork(network);
     this.setPattern(this.state.difficulty);
-    return console.log("component mounted");
+    console.log("component mounted");
+    axios
+    .get('http://localhost:5000/broadcast/')
+    .then(response => {
+      console.log('blocks', response.data);
+    })
   }
   // END OF CONSTRUCTOR METHODS
 
@@ -162,7 +158,7 @@ class ProductProvider extends Component {
     const networkArray = [...this.state.network];
     console.log('netArray', networkArray);
     const block = networkArray[chain].chain[0];
-    console.log('blockchain added', block);
+    console.log('block added', block);
     axios.post('http://localhost:5000/broadcast/add', block).then(res => {
       console.log(res.data);
       // const newChain = res.data;
