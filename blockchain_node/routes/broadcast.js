@@ -1,4 +1,5 @@
 const router = require('express').Router();
+// import Consensus from '../models/broadcast.model';
 let Broadcast = require('../models/broadcast.model');
 
 router.route('/').get((req, res) => {
@@ -15,20 +16,28 @@ router.route("/:id").get((req, res) => {
 
 
 router.route('/add').post((req, res) => {
-    const blockNumber = req.body.blockNumber;
-    const data = req.body.data;
-    const nonce = req.body.nonce;
-    const previousBlockHash = req.body.previousBlockHash;
-    const timestamp = req.body.timestamp;
-    const hash = req.body.hash;
-     
+    const title = req.body.title;
+    const nodes = req.body.nodes;
+    const chainId = req.body.chainId;
+    const blockNumber = req.body.chain[0].blockNumber;
+    const data = req.body.chain[0].data;
+    const nonce = req.body.chain[0].nonce;
+    const previousBlockHash = req.body.chain[0].previousBlockHash;
+    const timestamp = req.body.chain[0].timestamp;
+    const hash = req.body.chain[0].hash;
+    
     const newChain = new Broadcast({
-      blockNumber,
-      data,
-      nonce,
-      previousBlockHash,
-      timestamp,
-      hash
+      title,
+      nodes,
+      chainId,
+      chain: [{
+        blockNumber: blockNumber,
+        data:data,
+        nonce: nonce,
+        previousBlockHash: previousBlockHash,
+        timestamp: timestamp,
+        hash: hash
+      }]
     });
     //consensus algorithm
     newChain

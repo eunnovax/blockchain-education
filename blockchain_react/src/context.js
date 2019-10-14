@@ -157,7 +157,7 @@ class ProductProvider extends Component {
     e.preventDefault();
     const networkArray = [...this.state.network];
     console.log('netArray', networkArray);
-    const block = networkArray[chain].chain[0];
+    const block = networkArray[chain];
     console.log('block added', block);
     axios.post('http://localhost:5000/broadcast/add', block).then(res => {
       console.log(res.data);
