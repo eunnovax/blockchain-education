@@ -2,18 +2,6 @@ const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 
-// const blockSchema = new Schema(
-//     {
-            
-//         blockNumber: {type: Number,  required: true},
-//         data: {type: String, required: true},
-//         nonce: {type: Number, required: true},
-//         previousBlockHash: {type: String, required: true},
-//         timestamp: {type: Number, required: true},
-//         hash: {type: String, required: true}
-//     }
-// );
-
 const consensusSchema = new Schema(
     {
         title: {type: String, required: true},

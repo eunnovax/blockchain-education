@@ -1,5 +1,4 @@
 const router = require('express').Router();
-// import Consensus from '../models/broadcast.model';
 let Broadcast = require('../models/broadcast.model');
 
 router.route('/').get((req, res) => {
@@ -36,34 +35,55 @@ router.route('/add').post((req, res) => {
           hash: hash
         };
       chain = [...chain, newBlock];  
-      console.log('chain so far', chain);
+      // console.log('chain so far', chain);
     });
-    // const blockNumber = req.body.chain[0].blockNumber;
-    // const data = req.body.chain[0].data;
-    // const nonce = req.body.chain[0].nonce;
-    // const previousBlockHash = req.body.chain[0].previousBlockHash;
-    // const timestamp = req.body.chain[0].timestamp;
-    // const hash = req.body.chain[0].hash;
     
     const newChain = new Broadcast({
       title,
       nodes,
       chainId,
       chain
-      // chain: [{
-      //   blockNumber: blockNumber,
-      //   data:data,
-      //   nonce: nonce,
-      //   previousBlockHash: previousBlockHash,
-      //   timestamp: timestamp,
-      //   hash: hash
-      // }]
     });
     //consensus algorithm
     newChain
     .save()
     .then(() => res.json('Network updated!'))
     .catch(err => res.status(400).json('Error: '+ err));
+});
+
+router.route("/update/:id").post((req, res) => {
+  Broadcast.findById(req.params.id)
+    .then(blockchain => {
+      blockchain.title = req.body.title;
+      blockchain.nodes = req.body.nodes;
+      blockchain.chainId = req.body.chainId;
+      let chain = [];
+      req.body.chain.map(block => {
+        const blockNumber = block.blockNumber;
+        const data = block.data;
+        const nonce = block.nonce;
+        const previousBlockHash = block.previousBlockHash;
+        const timestamp = block.timestamp;
+        const hash = block.hash;
+        let newBlock = {
+            blockNumber: blockNumber,
+            data:data,
+            nonce: nonce,
+            previousBlockHash: previousBlockHash,
+            timestamp: timestamp,
+            hash: hash
+          };
+        chain = [...chain, newBlock];  
+        // console.log('chain so far', chain);
+      });
+      blockchain.chain = chain;  
+ 
+      blockchain
+        .save()
+        .then(() => res.json("Blockchain updated!"))
+        .catch(err => res.status(400).json("Error: " + err));
+    })
+    .catch(err => res.status(400).json("Error: " + err));
 });
 
 module.exports = router;

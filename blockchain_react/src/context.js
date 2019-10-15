@@ -44,7 +44,6 @@ class ProductProvider extends Component {
   };
 
   componentDidMount() {
-    this.setNetwork(network);
     this.setPattern(this.state.difficulty);
     console.log("component mounted");
     axios
@@ -52,7 +51,7 @@ class ProductProvider extends Component {
     .then(response => {
       console.log('blocks', response.data);
       this.setState({networkDB: response.data});
-
+      this.setNetwork(response.data);
     })
   }
   // END OF CONSTRUCTOR METHODS
@@ -160,14 +159,29 @@ class ProductProvider extends Component {
     e.preventDefault();
     const networkArray = [...this.state.network];
     console.log('netArray', networkArray);
-    const block = networkArray[chain];
-    console.log('block added', block);
-    axios.post('http://localhost:5000/broadcast/add', block).then(res => {
+    const blockchain = networkArray[chain];
+    console.log('block added', blockchain);
+    const Id = this.state.networkDB[chain]._id;
+    if (Id) {
+      axios
+      .post('http://localhost:5000/broadcast/update/' + Id, blockchain)
+      .then(response => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+    } else {
+      axios
+      .post('http://localhost:5000/broadcast/add', blockchain)
+      .then(res => {
       console.log(res.data);
-      // const newChain = res.data;
-
-      // this.setState({network: res.data});
-    });
+      })
+      .catch(error=> {
+        console.log(error);
+      });
+    }
+    
     // window.location = '/';
   };
   //END OF BODY METHODS
