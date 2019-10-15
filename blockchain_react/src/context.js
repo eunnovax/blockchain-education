@@ -16,7 +16,8 @@ class ProductProvider extends Component {
       difficulty: 4,
       maxNonce: 500000,
       pattern: '',
-      hash: ''
+      hash: '',
+      networkDB: []
     };
   }
 
@@ -50,6 +51,8 @@ class ProductProvider extends Component {
     .get('http://localhost:5000/broadcast/')
     .then(response => {
       console.log('blocks', response.data);
+      this.setState({networkDB: response.data});
+
     })
   }
   // END OF CONSTRUCTOR METHODS
