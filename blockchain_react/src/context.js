@@ -131,7 +131,7 @@ class ProductProvider extends Component {
     newBlock.nonce = 1111;
     newBlock.previousBlockHash = tempNetwork[chain-1].chain[block-1].hash;
     newBlock.timestamp = 1111;
-    newBlock.hash = '';
+    newBlock.hash = '0101abc';
     tempNetwork[chain-1].chain = [...tempNetwork[chain-1].chain, newBlock];
     this.setState({network: tempNetwork});
   };
