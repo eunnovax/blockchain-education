@@ -149,7 +149,7 @@ class ProductProvider extends Component {
     newBlock.nonce = 1111;
     newBlock.previousBlockHash = '0';
     newBlock.timestamp = 1111;
-    newBlock.hash = '';
+    newBlock.hash = '0011afcde';
     
     newChain.chain = [...newChain.chain, newBlock];
     tempNetwork = [...tempNetwork, newChain];

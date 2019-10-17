@@ -45,6 +45,16 @@ router.route('/add').post((req, res) => {
       chain
     });
     //consensus algorithm
+    //1. if (req.body.chain === dbBlockchain[i]) {
+    // update chain
+    // dbBlockchain[i].nodes++;
+    // dbBlockchain[i].chain = [...dbBlockchain[i].chain, newBlock];}
+    // else {
+    // add new chain
+    //}
+    // consensus rules
+    // sha256(block) === dbBlockHash
+    // sha256(prevBlock) === prevDBBlockHash
     newChain
     .save()
     .then(() => res.json('Network updated!'))
