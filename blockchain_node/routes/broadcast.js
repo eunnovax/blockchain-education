@@ -1,5 +1,6 @@
 const router = require('express').Router();
 let Broadcast = require('../models/broadcast.model');
+import SHA256 from 'crypto-js/sha256';
 
 router.route('/').get((req, res) => {
     Broadcast.find()
@@ -15,6 +16,11 @@ router.route("/:id").get((req, res) => {
 
 
 router.route('/add').post((req, res) => {
+  validChain = (blockChain) => {
+    //1. SHA256(chain[chain.length-1]) === block.previousBlockHash;
+    //2. let regex = /^(\0{4})/;
+    // regex.test(block.hash);
+  }
     const title = req.body.title;
     const nodes = req.body.nodes;
     const chainId = req.body.chainId;
