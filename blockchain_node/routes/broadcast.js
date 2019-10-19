@@ -16,7 +16,7 @@ router.route("/:id").get((req, res) => {
 
 
 router.route('/add').post((req, res) => {
-  validChain = (blockChain) => {
+  validBlock = (block) => {
     //1. SHA256(chain[chain.length-1]) === block.previousBlockHash;
     //2. let regex = /^(\0{4})/;
     // regex.test(block.hash);
@@ -51,16 +51,14 @@ router.route('/add').post((req, res) => {
       chain
     });
     //consensus algorithm
-    //1. if (req.body.chain === dbBlockchain[i]) {
-    // update chain
-    // dbBlockchain[i].nodes++;
-    // dbBlockchain[i].chain = [...dbBlockchain[i].chain, newBlock];}
-    // else {
-    // add new chain
-    //}
-    // consensus rules
-    // sha256(block) === dbBlockHash
-    // sha256(prevBlock) === prevDBBlockHash
+    // broadcast the last block of a particular chain
+    // if (
+    // 1. sha256(prevBlock) === block.prevHash
+    // 2. sha256(block) === block.hash
+    // 3. '0000' === regex.test(block.hash))
+    // { add the block to the chain }
+    // else if (1. sha256(prevPrevBlock) === block.prevHash; 2. && 3.)
+    // {add new chain as fork}
     newChain
     .save()
     .then(() => res.json('Network updated!'))
