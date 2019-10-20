@@ -17,8 +17,7 @@ router.route("/:id").get((req, res) => {
 
 router.route('/add').post((req, res) => {
   validBlock = (block) => {
-    //1. SHA256(chain[chain.length-1]) === block.previousBlockHash;
-    //2. let regex = /^(\0{4})/;
+    // let regex = /^(\0{4})/;
     // regex.test(block.hash);
   }
     const title = req.body.title;

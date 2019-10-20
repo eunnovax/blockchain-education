@@ -17,7 +17,8 @@ class ProductProvider extends Component {
       maxNonce: 500000,
       pattern: '',
       hash: '',
-      networkDB: []
+      networkDB: [],
+      status: false
     };
   }
 
@@ -156,6 +157,7 @@ class ProductProvider extends Component {
     this.setState({network: tempNetwork});
   };
   consensus = (e, chain) => {
+    // check if the blockchain is valid and mined
     e.preventDefault();
     const networkArray = [...this.state.network];
     console.log('netArray', networkArray);
@@ -183,6 +185,21 @@ class ProductProvider extends Component {
     }
     
     // window.location = '/';
+  };
+  checkChain = (e, chain) => {
+    let tempNetwork = [...this.state.network];
+    let status = false;
+    for (let i=0; i< tempNetwork[chain].chain.length; i++) {
+      const hash = tempNetwork[chain].chain[i].hash;
+      if (hash.substring(0,this.state.difficulty) === this.state.pattern) {
+        status = true;
+      } else {
+        break;
+      }
+    }
+    if (status) {
+      this.setState({status: status});
+    }
   };
   //END OF BODY METHODS
 
