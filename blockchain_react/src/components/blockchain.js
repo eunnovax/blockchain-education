@@ -61,7 +61,8 @@ class Blockchain extends Component {
           <div className="chain-header d-flex align-self-center">
             <h5 className="text-blue mb-0">{nodes} Nodes</h5>
           </div>
-          <div 
+          <div
+          className='div-size' 
           onClick = {e=> {
             value.consensus(e, chainID-1);
           }}

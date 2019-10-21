@@ -45,15 +45,15 @@ class ProductProvider extends Component {
   };
 
   componentDidMount() {
-    this.setNetwork(network);
+    // this.setNetwork(network);
     this.setPattern(this.state.difficulty);
     console.log("component mounted");
     axios
     .get('http://localhost:5000/broadcast/')
     .then(response => {
       console.log('blocks', response.data);
-      this.setState({networkDB: response.data});
-      // this.setNetwork(response.data);
+      // this.setState({networkDB: response.data});
+      this.setNetwork(response.data);
     })
   }
   // END OF CONSTRUCTOR METHODS
@@ -165,8 +165,8 @@ class ProductProvider extends Component {
     const networkArray = [...this.state.network];
     console.log('netArray', networkArray);
     const blockchain = networkArray[chain];
-    console.log('block added', blockchain);
-    const Id = this.state.networkDB[chain]._id;
+    console.log('blockchain added', blockchain);
+    const Id = this.state.network[chain]._id;
     if (Id) {
       axios
       .post('http://localhost:5000/broadcast/update/' + Id, blockchain)
@@ -200,9 +200,11 @@ class ProductProvider extends Component {
       if (hash.substring(0,this.state.difficulty) === this.state.pattern) {
         status = true;
       } else {
+        status = false;
         break;
       }
     }
+    console.log('blockchain status', status);
     return status;
   };
   //END OF BODY METHODS

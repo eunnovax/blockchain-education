@@ -1,6 +1,6 @@
 const router = require('express').Router();
 let Broadcast = require('../models/broadcast.model');
-import SHA256 from 'crypto-js/sha256';
+const SHA256 = require('crypto-js/sha256');
 
 router.route('/').get((req, res) => {
     Broadcast.find()
@@ -17,8 +17,17 @@ router.route("/:id").get((req, res) => {
 
 router.route('/add').post((req, res) => {
   validBlock = (block) => {
-    // let regex = /^(\0{4})/;
+    // let regex = /^(0{4})/;
     // regex.test(block.hash);
+    //consensus algorithm
+    // broadcast the last block of a particular chain
+    // if (
+    // 1. sha256(prevBlock) === block.prevHash
+    // 2. sha256(block) === block.hash
+    // 3. '0000' === regex.test(block.hash))
+    // { add the block to the chain }
+    // else if (1. sha256(prevPrevBlock) === block.prevHash; 2. && 3.)
+    // {add new chain as fork}
   }
     const title = req.body.title;
     const nodes = req.body.nodes;
@@ -49,15 +58,6 @@ router.route('/add').post((req, res) => {
       chainId,
       chain
     });
-    //consensus algorithm
-    // broadcast the last block of a particular chain
-    // if (
-    // 1. sha256(prevBlock) === block.prevHash
-    // 2. sha256(block) === block.hash
-    // 3. '0000' === regex.test(block.hash))
-    // { add the block to the chain }
-    // else if (1. sha256(prevPrevBlock) === block.prevHash; 2. && 3.)
-    // {add new chain as fork}
     newChain
     .save()
     .then(() => res.json('Network updated!'))
@@ -65,36 +65,65 @@ router.route('/add').post((req, res) => {
 });
 
 router.route("/update/:id").post((req, res) => {
+  
   Broadcast.findById(req.params.id)
     .then(blockchain => {
       blockchain.title = req.body.title;
       blockchain.nodes = req.body.nodes;
       blockchain.chainId = req.body.chainId;
-      let chain = [];
-      req.body.chain.map(block => {
-        const blockNumber = block.blockNumber;
-        const data = block.data;
-        const nonce = block.nonce;
-        const previousBlockHash = block.previousBlockHash;
-        const timestamp = block.timestamp;
-        const hash = block.hash;
-        let newBlock = {
-            blockNumber: blockNumber,
-            data:data,
-            nonce: nonce,
-            previousBlockHash: previousBlockHash,
-            timestamp: timestamp,
-            hash: hash
-          };
-        chain = [...chain, newBlock];  
-        // console.log('chain so far', chain);
-      });
-      blockchain.chain = chain;  
- 
-      blockchain
-        .save()
-        .then(() => res.json("Blockchain updated!"))
-        .catch(err => res.status(400).json("Error: " + err));
+      let chain = [...req.body.chain];
+      // req.body.chain.map(block => {
+      //   const blockNumber = block.blockNumber;
+      //   const data = block.data;
+      //   const nonce = block.nonce;
+      //   const previousBlockHash = block.previousBlockHash;
+      //   const timestamp = block.timestamp;
+      //   const hash = block.hash;
+      //   let newBlock = {
+      //       blockNumber: blockNumber,
+      //       data:data,
+      //       nonce: nonce,
+      //       previousBlockHash: previousBlockHash,
+      //       timestamp: timestamp,
+      //       hash: hash
+      //     };
+      //   chain = [...chain, newBlock];  
+      //   // console.log('chain so far', chain);
+      // });
+      const block = req.body.chain[chain.length-1];
+      const blockNumber = block.blockNumber;
+      const data = block.data;
+      const nonce = block.nonce;
+      const previousBlockHash = block.previousBlockHash;
+      const timestamp = block.timestamp;
+      const hash = block.hash;
+      const prevBlock = req.body.chain[chain.length-2];
+      const prevBlockNumber = prevBlock.blockNumber;
+      const prevData = prevBlock.data;
+      const prevNonce = prevBlock.nonce;
+      const prevPreviousBlockHash = prevBlock.previousBlockHash;
+      const prevTimestamp = prevBlock.timestamp;
+      const prevHash = prevBlock.hash;
+      const prevBlockTxt = prevBlockNumber + prevData + prevNonce + prevPreviousBlockHash + prevTimestamp;
+      const prevBlockHash = SHA256(prevBlockTxt).toString();
+      const blckTxt = blockNumber + data + nonce + previousBlockHash + timestamp;
+      const blockHash = SHA256(blckTxt).toString();
+     
+      const regex = /^(0{4})/;
+      console.log('prevBlockHash', prevBlockHash);
+      console.log('previousBlockHash', previousBlockHash);
+      console.log('blockHash', blockHash);
+      console.log('hash', hash);
+      console.log('mined', regex.test(hash));
+          if (prevBlockHash === previousBlockHash && blockHash === hash && regex.test(hash) === true) {
+            console.log('block is valid');
+            blockchain.chain = chain;  
+            blockchain
+              .save()
+              .then(() => res.json("Blockchain updated!"))
+              .catch(err => res.status(400).json("Error: " + err));
+           }
+
     })
     .catch(err => res.status(400).json("Error: " + err));
 });
