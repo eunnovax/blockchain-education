@@ -45,6 +45,7 @@ class ProductProvider extends Component {
   };
 
   componentDidMount() {
+    this.setNetwork(network);
     this.setPattern(this.state.difficulty);
     console.log("component mounted");
     axios
@@ -52,7 +53,7 @@ class ProductProvider extends Component {
     .then(response => {
       console.log('blocks', response.data);
       this.setState({networkDB: response.data});
-      this.setNetwork(response.data);
+      // this.setNetwork(response.data);
     })
   }
   // END OF CONSTRUCTOR METHODS
@@ -159,6 +160,8 @@ class ProductProvider extends Component {
   consensus = (e, chain) => {
     // check if the blockchain is valid and mined
     e.preventDefault();
+    let status = this.checkChain(chain);
+    if (status) {
     const networkArray = [...this.state.network];
     console.log('netArray', networkArray);
     const blockchain = networkArray[chain];
@@ -183,10 +186,13 @@ class ProductProvider extends Component {
         console.log(error);
       });
     }
+    } else {
+      alert('blockchain is not valid!');
+    }
     
     // window.location = '/';
   };
-  checkChain = (e, chain) => {
+  checkChain = (chain) => {
     let tempNetwork = [...this.state.network];
     let status = false;
     for (let i=0; i< tempNetwork[chain].chain.length; i++) {
@@ -197,9 +203,7 @@ class ProductProvider extends Component {
         break;
       }
     }
-    if (status) {
-      this.setState({status: status});
-    }
+    return status;
   };
   //END OF BODY METHODS
 
