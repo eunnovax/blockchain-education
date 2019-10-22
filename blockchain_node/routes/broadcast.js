@@ -115,8 +115,9 @@ router.route("/update/:id").post((req, res) => {
       console.log('blockHash', blockHash);
       console.log('hash', hash);
       console.log('mined', regex.test(hash));
-          if (prevBlockHash === previousBlockHash && blockHash === hash && regex.test(hash) === true) {
-            console.log('block is valid');
+          // if (prevBlockHash === previousBlockHash && blockHash === hash && regex.test(hash) === true) {
+          //   console.log('block is valid');
+          if (blockchain.chain.length < chain.length) {  
             blockchain.chain = chain;  
             blockchain
               .save()
