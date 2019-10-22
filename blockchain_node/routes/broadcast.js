@@ -91,6 +91,7 @@ router.route("/update/:id").post((req, res) => {
       //   // console.log('chain so far', chain);
       // });
       const block = req.body.chain[chain.length-1];
+      // console.log('block', block);
       const blockNumber = block.blockNumber;
       const data = block.data;
       const nonce = block.nonce;
@@ -98,12 +99,17 @@ router.route("/update/:id").post((req, res) => {
       const timestamp = block.timestamp;
       const hash = block.hash;
       const prevBlock = req.body.chain[chain.length-2];
-      const prevBlockNumber = prevBlock.blockNumber;
-      const prevData = prevBlock.data;
-      const prevNonce = prevBlock.nonce;
-      const prevPreviousBlockHash = prevBlock.previousBlockHash;
-      const prevTimestamp = prevBlock.timestamp;
-      const prevHash = prevBlock.hash;
+      let prevBlockNumber;let prevData;let prevNonce;let prevPreviousBlockHash;let prevTimestamp;let prevHash;
+      if (prevBlock) {
+      prevBlockNumber = prevBlock.blockNumber;
+      prevData = prevBlock.data;
+      prevNonce = prevBlock.nonce;
+      prevPreviousBlockHash = prevBlock.previousBlockHash;
+      prevTimestamp = prevBlock.timestamp;
+      prevHash = prevBlock.hash;
+      };
+      console.log('prevBlock', prevBlock);
+      console.log('prevHash', prevHash);
       const prevBlockTxt = prevBlockNumber + prevData + prevNonce + prevPreviousBlockHash + prevTimestamp;
       const prevBlockHash = SHA256(prevBlockTxt).toString();
       const blckTxt = blockNumber + data + nonce + previousBlockHash + timestamp;
