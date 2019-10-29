@@ -4,16 +4,17 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "heroku-postbuild": "cd ../blockchain_react && npm install && npm run build"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
+    "create-react-app": "^3.2.0",
     "crypto-js": "^3.1.9-1",
     "dotenv": "^8.1.0",
     "express": "^4.17.1",
+    "helmet-csp": "^2.9.4",
     "mongoose": "^5.7.3"
   }
 }
