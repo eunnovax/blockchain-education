@@ -176,6 +176,7 @@ class ProductProvider extends Component {
       .post('https://blockchainnet.herokuapp.com/broadcast/update/' + Id, blockchain)
       .then(response => {
         console.log(response.data);
+        alert(response.data);
       })
       .catch(error => {
         console.log(error);

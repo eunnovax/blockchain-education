@@ -64,7 +64,8 @@ router.route("/update/:id").post((req, res) => {
       if (chain.length <= 1) {
         console.log('blockchain cannot be updated!')
       } else if (chain.length > 1 && blockchain.chain.length >= chain.length) {
-        console.log('blockchain is shorter than consensus chain')
+        console.log('blockchain is shorter than consensus chain');
+        res.json('consensus has not been reached!');
       } else if (chain.length > 1 && blockchain.chain.length < chain.length) {
           for (let i=0; i<chain.length; i++) {
             if (i === chain.length - 1) {
@@ -131,43 +132,6 @@ router.route("/update/:id").post((req, res) => {
             console.log('blockchain is not valid')
           }
         }
-      // const block = req.body.chain[chain.length-1];
-      // const blockNumber = block.blockNumber;
-      // const data = block.data;
-      // const nonce = block.nonce;
-      // const previousBlockHash = block.previousBlockHash;
-      // const timestamp = block.timestamp;
-      // const hash = block.hash;
-
-      // const prevBlock = req.body.chain[chain.length-2];
-      // let prevBlockNumber;let prevData;let prevNonce;let prevPreviousBlockHash;let prevTimestamp;let prevHash;
-      // if (prevBlock) {
-      // prevBlockNumber = prevBlock.blockNumber;
-      // prevData = prevBlock.data;
-      // prevNonce = prevBlock.nonce;
-      // prevPreviousBlockHash = prevBlock.previousBlockHash;
-      // prevTimestamp = prevBlock.timestamp;
-      // prevHash = prevBlock.hash;
-      // };
-
-      // //SHA256 of block
-      // const prevBlockTxt = prevBlockNumber + prevData + prevNonce + prevPreviousBlockHash + prevTimestamp;
-      // const prevBlockHash = SHA256(prevBlockTxt).toString();
-      // const blckTxt = blockNumber + data + nonce + previousBlockHash + timestamp;
-      // const blockHash = SHA256(blckTxt).toString();
-      // //block is verified
-      // const regex = /^(0{4})/;
-      // console.log('mined', regex.test(hash));
-      //     // if (prevBlockHash === previousBlockHash && blockHash === hash && regex.test(hash) === true) {
-      //     //   console.log('block is valid');
-      //     if (blockchain.chain.length < chain.length) {  
-      //       blockchain.chain = chain;  
-      //       blockchain
-      //         .save()
-      //         .then(() => res.json("Blockchain updated!"))
-      //         .catch(err => res.status(400).json("Error: " + err));
-      //      }
-
     })
     .catch(err => res.status(400).json("Error: " + err));
 });
